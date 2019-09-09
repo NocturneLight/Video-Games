@@ -1,0 +1,23 @@
+﻿Cinemachine can give us the parallax effect.
+
+Simply move the X, Y, or Z position of CM vcam1 while a character is some Z distance away from the background.
+
+------------------------------
+To do animation like move Clarevine, you use cinemachine. 
+
+Insert a "Dolly Camera with Track".
+
+Then, in the "DollyTrack1" game object, create some number of waypoints with different X, Y, and Z values.
+
+Then, add CM vcam1 to the timeline windowpane.
+
+To record movement, in the Timeline windowpane, click the red circle button.
+
+On frame 0, assign positions for a character. On any number of frames after assign differents positions.
+When done, press the circle button again to stop recording.
+
+If you click the play button in the Timeline tab, the character you animated will smoothly move to the assigned
+positions.
+
+Click the main start gameplay button and your animation will immediately play.
+------------------------------
