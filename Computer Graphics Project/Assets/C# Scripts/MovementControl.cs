@@ -31,9 +31,11 @@ public class MovementControl : MonoBehaviour
 		// Create variables exclusive to this function here.
 		float horizMove = Input.GetAxis("Horizontal");
 		float vertiMove = Input.GetAxis("Vertical");
-		Vector3 moveVector = new Vector3(horizMove, 0.0f, vertiMove);	// We're using the horizontal and vertical axes to create a movement vector for us.
+		
+		// Assign our object's velocity a speed vector using speed multiplied with the Horizontal and Vertical axes.
+		body.velocity = new Vector3(horizMove * speed, 0.0f, vertiMove * speed);
 
-		// Apply force to the GameObject through RigidBody to create movement.
-		body.AddForce(moveVector * speed);
+		
+		
 	}
 }
