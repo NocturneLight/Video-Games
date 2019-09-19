@@ -6,7 +6,7 @@ public class MovementControl : MonoBehaviour
 {
 
 	// Create our variables here.
-	private float speed = 10;
+	public float speed = 10;
 	private Rigidbody body = null;
     public Animator animator = null;
     
@@ -38,23 +38,11 @@ public class MovementControl : MonoBehaviour
 		float vertiMove = Input.GetAxis("Vertical");
 		Vector3 moveVector = new Vector3(horizMove, 0.0f, vertiMove);	// We're using the horizontal and vertical axes to create a movement vector for us.
 
+		
 		// If pressing a key associated with movement, apply the walking animation.
-        if (Input.GetKey("up") || Input.GetKey("down") || Input.GetKey("left") || Input.GetKey("right") ||
-		    Input.GetKey("w")  || Input.GetKey("s")    || Input.GetKey("a")    || Input.GetKey("d"))
-        {
-            animator.SetBool("isRun", true);
-        }
-		// Otherwise, disable the walking animation.
-        else
-        {
-            animator.SetBool("isRun", false);
-        }
+		animator.SetBool("isRun", (Input.GetButton("Horizontal") || Input.GetButton("Vertical")) ? true : false);
 
 		// Assign our object's velocity a speed vector using speed multiplied with the Horizontal and Vertical axes.
 		body.velocity = new Vector3(horizMove * speed, 0.0f, vertiMove * speed);
-
-
-		
-		
 	}
 }
