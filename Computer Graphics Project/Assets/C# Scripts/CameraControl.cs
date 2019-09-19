@@ -6,8 +6,6 @@ public class CameraControl : MonoBehaviour
 {
 
 	// Create our variables here.
-	public GameObject playerObject = null; // Allows us to attach a GameObject to the script in the Unity Editor.
-	public GameObject cameraObject = null;
 	public GameObject followObject = null;
 	public float cameraSpeed = 10.0f;	// Determines the speed of the camera.
 	public float minClamp = -5.0f;
