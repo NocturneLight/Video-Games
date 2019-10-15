@@ -9200,6 +9200,11 @@ PrefabInstance:
       propertyPath: m_Convex
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5573762212727943711, guid: a4449d68f9c25dc40ae378ee8a78dad7,
+        type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a4449d68f9c25dc40ae378ee8a78dad7, type: 3}
 --- !u!1001 &331003971
