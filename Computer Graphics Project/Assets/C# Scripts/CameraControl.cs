@@ -28,6 +28,10 @@ public class CameraControl : MonoBehaviour
 		// Store the values retrieved from the object in our rotate variable.
 		rotate = new Vector2(tempRotate.x, tempRotate.y);
 
+		// Always start the camera's x position at where the follow object's position is to prevent
+		// having the camera have to catch up at the start.
+		this.transform.position = new Vector3(followObject.transform.position.x, this.transform.position.y, this.transform.position.z);
+
 		// For convenience, we'll lock the cursor and make it disappear when rotating the camera.
 		Cursor.visible = false;
 		Cursor.lockState = CursorLockMode.Locked;
