@@ -1465,6 +1465,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06f74215ad4ea594eaac920405c9ce7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  jumpLimit: 2
   speed: 5
   animator: {fileID: 7203496078256651676}
 --- !u!114 &1696159145
@@ -1479,7 +1480,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8a270ba283a2f84593af0346dd6100c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemCount: {fileID: 0}
+  itemCountText: {fileID: 0}
 --- !u!1 &7108362484610756210
 GameObject:
   m_ObjectHideFlags: 0

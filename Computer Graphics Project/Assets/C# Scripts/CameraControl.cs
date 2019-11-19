@@ -33,8 +33,8 @@ public class CameraControl : MonoBehaviour
 		this.transform.position = new Vector3(followObject.transform.position.x, this.transform.position.y, this.transform.position.z);
 
 		// For convenience, we'll lock the cursor and make it disappear when rotating the camera.
-		Cursor.visible = false;
-		Cursor.lockState = CursorLockMode.Locked;
+		//Cursor.visible = false;
+		//Cursor.lockState = CursorLockMode.Locked;
 	}
 	
 	// Update is called once per frame
