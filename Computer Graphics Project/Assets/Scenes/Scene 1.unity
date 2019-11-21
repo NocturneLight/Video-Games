@@ -264,7 +264,7 @@ Transform:
   - {fileID: 25574386}
   - {fileID: 2059664539}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &330565849
 PrefabInstance:
@@ -316,7 +316,7 @@ PrefabInstance:
     - target: {fileID: 5573762213691604119, guid: a4449d68f9c25dc40ae378ee8a78dad7,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5573762213691604119, guid: a4449d68f9c25dc40ae378ee8a78dad7,
         type: 3}
@@ -444,14 +444,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!1 &499615813 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 499615813, guid: 9e8fe827ab89e154b8c1986f9f290c8f,
-    type: 3}
-  m_PrefabInstance: {fileID: 3553957896718410750}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &709264979
 GameObject:
   m_ObjectHideFlags: 0
@@ -554,17 +548,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 709264979}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8d163415083098429711f07ede7c89b, type: 3}
+  m_Script: {fileID: 11500000, guid: bfb43827d322a61439c783d032553bf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiComponent: {fileID: 2086312531}
-  textboxObject: {fileID: 499615813}
-  dialogueObject: {fileID: 1585999751}
-  dialogueTextObject: {fileID: 1522092266}
-  characterText:
-    dialogue:
-    - Ooga.
-    - Booga.
+  textbox: {fileID: 1699952240}
+  textArea: {fileID: 1522092266}
+  dialogue:
+  - Tidus.
+  - Yuna.
+  - Auron.
 --- !u!1 &874527700 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 743873867, guid: b211b45367211d147800790329f26a71,
@@ -713,7 +705,7 @@ PrefabInstance:
     - target: {fileID: 7109005099039952026, guid: b211b45367211d147800790329f26a71,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7109005099039952026, guid: b211b45367211d147800790329f26a71,
         type: 3}
@@ -848,51 +840,21 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!1 &1522092264
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1522092265}
-  m_Layer: 0
-  m_Name: 
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &1522092265
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1522092264}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1522092266 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1522092266, guid: 9e8fe827ab89e154b8c1986f9f290c8f,
     type: 3}
   m_PrefabInstance: {fileID: 3553957896718410750}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1585999751}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1585999751 stripped
+--- !u!1 &1699952240 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 1522092264, guid: 9e8fe827ab89e154b8c1986f9f290c8f,
+  m_CorrespondingSourceObject: {fileID: 499615813, guid: 9e8fe827ab89e154b8c1986f9f290c8f,
     type: 3}
   m_PrefabInstance: {fileID: 3553957896718410750}
   m_PrefabAsset: {fileID: 0}
@@ -1136,17 +1098,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 2059664538}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8d163415083098429711f07ede7c89b, type: 3}
+  m_Script: {fileID: 11500000, guid: bfb43827d322a61439c783d032553bf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiComponent: {fileID: 2086312531}
-  textboxObject: {fileID: 499615813}
-  dialogueObject: {fileID: 1585999751}
-  dialogueTextObject: {fileID: 1522092266}
-  characterText:
-    dialogue:
-    - Bah.
-    - Humbug.
+  textbox: {fileID: 1699952240}
+  textArea: {fileID: 1522092266}
+  dialogue:
+  - Cloud.
+  - Tifa.
+  - Barrett.
 --- !u!65 &2059664541
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1206,12 +1166,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2059664538}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &2086312531 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3553957896467458077, guid: 9e8fe827ab89e154b8c1986f9f290c8f,
-    type: 3}
-  m_PrefabInstance: {fileID: 3553957896718410750}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3553957896718410750
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1266,7 +1220,7 @@ PrefabInstance:
     - target: {fileID: 3553957896467458073, guid: 9e8fe827ab89e154b8c1986f9f290c8f,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3553957896467458073, guid: 9e8fe827ab89e154b8c1986f9f290c8f,
         type: 3}
@@ -1389,7 +1343,7 @@ PrefabInstance:
     - target: {fileID: 4170993578739997575, guid: 45ceff5ab68d29c4191f94a2d3cb4e28,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4170993578739997575, guid: 45ceff5ab68d29c4191f94a2d3cb4e28,
         type: 3}

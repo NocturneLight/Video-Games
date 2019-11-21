@@ -5,30 +5,46 @@ using UnityEngine;
 // Make usable outside of runtime.
 [System.Serializable]
 
-public class DialogueSystem
+public static class DialogueSystem
 {
-    // Create variables here.
-    public static int lineNumber = 1;                                       // The number of lines an object has.
-    [TextArea(5, 15)] public string[] dialogue = new string[lineNumber];    // That which stores the dialogue.
+    private static bool isTalking = false;  // A global variable to control who gets to talk.
+    private static Queue<string> dialogueQueue = new Queue<string>(); // A global queue used to pass text to the UI.
 
-    public bool isEmpty()
+    // Checks the global bool.
+    public static bool getIsTalking()
     {
-        // Create local variables here.
-        int emptyCount = 0;
+        return isTalking;
+    }
 
-        // Iterate through the string array...
-        foreach (string item in dialogue)
+    // Sets the value of the global bool.
+    public static void setIsTalking(bool truthValue)
+    {
+        isTalking = truthValue;
+    }
+
+    // Allows us to check the size of the global queue.
+    public static int getQueueSize()
+    {
+        return dialogueQueue.Count;
+    }
+
+    // Pops a string from the queue, reducing its size by 1.
+    public static string popFromQueue()
+    {
+        return dialogueQueue.Dequeue();
+    }
+
+    // Adds dialogue to the queue.
+    public static void pushToQueue(string[] script)
+    {
+        // If the queue is empty...
+        if (dialogueQueue.Count == 0)
         {
-            
-            // If we hit an empty string...
-            if (string.IsNullOrEmpty(item))
+            // Place each string in the given array into the queue.
+            foreach (string item in script)
             {
-                // Increment emptyCount.
-                emptyCount++;
+                dialogueQueue.Enqueue(item);
             }
         }
-
-        // Return true if emptyCount is not 0, false otherwise.
-        return (emptyCount == 0) ? false : true;
     }
 }

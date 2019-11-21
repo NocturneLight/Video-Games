@@ -6,111 +6,85 @@ using UnityEngine.UI;
 public class ClickMechanics : MonoBehaviour
 {
     // Create variables here.
-    public GameObject uiComponent = null;
-    public GameObject textboxObject = null;
-    public GameObject dialogueObject = null;
-    public Text dialogueTextObject = null;
-    public DialogueSystem characterText = new DialogueSystem();
-    private Queue<string> sentenceQueue = new Queue<string>();
-    private bool firstTime = true;
-    bool end = false;
+    private GameObject textObject = null;
+    public GameObject textbox = null;
+    public Text textArea = null;
+    public static int lineNumber = 1;
+    [TextArea(5, 15)] public string[] dialogue = new string[lineNumber];
 
     // Start is called before the first frame update
     void Start()
     {
-        if (uiComponent != null)
+        // Get the text component's Game Object form.
+        textObject = textArea.gameObject;
+
+        // If the Game Objects aren't null, make them invisible.
+        if (textObject != null && textbox != null)
         {
-            // Set the textbox and dialogue to false so they aren't on screen.
-            textboxObject.SetActive(false);
-            dialogueObject.SetActive(false);
-        }   
+            textObject.SetActive(false);
+            textbox.SetActive(false);    
+        }
+        // Otherwise, inform the user of the likely problem.
         else
         {
-            print("Forgot to add the UIComponent to this object.");
+            print("You forgot to attach a text object or textbox to the ClickMechanics script.");
         }
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     void OnMouseDown()
     {
-        // Set our textbox and text's visibility to true.
-        textboxObject.SetActive(true);
-        dialogueObject.SetActive(true);
+        //print("Object's name is: " + objectName + " | The global bool is: " + DialogueSystem.getIsTalking());
 
-        //print(characterText.isEmpty());
+        // Show the text and textbox.
+        textObject.SetActive(true);
+        textbox.SetActive(true);
 
-        if (!characterText.isEmpty() && firstTime)
+        // If no object is already talking...
+        if (!DialogueSystem.getIsTalking())
         {
-            foreach (string text in characterText.dialogue)
-            {
-                if (!string.IsNullOrEmpty(text) && !sentenceQueue.Contains(text))
-                {
-                    sentenceQueue.Enqueue(text);
-                }
-            }
+            // Set the global talking value to true.
+            DialogueSystem.setIsTalking(true);
 
-            dialogueTextObject.text = sentenceQueue.Dequeue();
+            //print("Global dialogue bool locked by: " + objectName + " | bool: " + DialogueSystem.getIsTalking());
 
-            firstTime = !firstTime;
+            // Push the dialogue on the object to the global queue.
+            DialogueSystem.pushToQueue(dialogue);
+
+            // Show the first piece of dialogue in the text box.
+            textArea.text = DialogueSystem.popFromQueue();
         }
-        else if (!firstTime && !end)
+        // If an object is currently talking...
+        else if (DialogueSystem.getIsTalking())
         {
-            if (sentenceQueue.Count == 0)
+            //print(objectName + " tried to talk but someone is speaking right now. | bool: " + DialogueSystem.getIsTalking());
+
+            // If the queue size is empty...
+            if (DialogueSystem.getQueueSize() == 0)
             {
-                end = !end;
+                //print("T'is an empty queue");
+
+                // Set the global talking value to false.
+                DialogueSystem.setIsTalking(false);
+
+                // Clear the text in the textbox.
+                textArea.text = "";
+
+                // Hide the text and textbox.
+                textObject.SetActive(false);
+                textbox.SetActive(false);  
             }
-            
-            if (sentenceQueue.Count > 0)
+            // If the queue size is not empty, then we display a piece of dialogue.
+            else
             {
-                dialogueTextObject.text = sentenceQueue.Dequeue();
-            }
-        }
-        
-        if (end)
-        {
-            // Set our textbox and text's visibility to true.
-            textboxObject.SetActive(false);
-            dialogueObject.SetActive(false);
-
-            firstTime = !firstTime;
-            end = !end;
-
-            dialogueTextObject.text = "";
-
-        }
-
-    /*
-        // If the text field isn't empty, place the string in the queue.
-        foreach (string text in characterText.dialogue)
-        {
-            if (text != "")
-            {
-                //print(text);
-                sentenceQueue.Enqueue(text);
+                textArea.text = DialogueSystem.popFromQueue();
             }
         }
-
-        dialogueTextObject.text = sentenceQueue.Dequeue();
-    */
-        /*
-        // If at the end, print that we're at the end in the log.
-        if (sentenceQueue.Count == 0)
-        {
-            print("End of queue.");
-        }
-        // Else we print the text in the queue to the text field on the object.
-        else
-        {
-            dialogueTextObject.text = sentenceQueue.Dequeue();
-        }
-        */
-
-        //textboxObject.SetActive(false);
-        //dialogueObject.SetActive(false);
     }
 }
