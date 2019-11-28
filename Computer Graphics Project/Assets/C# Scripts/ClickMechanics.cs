@@ -5,86 +5,75 @@ using UnityEngine.UI;
 
 public class ClickMechanics : MonoBehaviour
 {
-    // Create variables here.
-    private GameObject textObject = null;
     public GameObject textbox = null;
-    public Text textArea = null;
-    public static int lineNumber = 1;
-    [TextArea(5, 15)] public string[] dialogue = new string[lineNumber];
+    public GameObject choiceBox1 = null;
+    public GameObject choiceBox2 = null;
+    public int collectAmount = 5;
+    [TextArea(5, 15)] public string[] dialogue = new string[1];
+    [TextArea(5, 15)] public string[] completionDialogue = new string[1];
+    private bool isTalking = false;
 
-    // Start is called before the first frame update
     void Start()
     {
-        // Get the text component's Game Object form.
-        textObject = textArea.gameObject;
-
-        // If the Game Objects aren't null, make them invisible.
-        if (textObject != null && textbox != null)
+        if (textbox != null && choiceBox1 != null && choiceBox2 != null)
         {
-            textObject.SetActive(false);
-            textbox.SetActive(false);    
+            textbox.SetActive(false);
+            choiceBox1.SetActive(false);
+            choiceBox2.SetActive(false);
         }
-        // Otherwise, inform the user of the likely problem.
         else
         {
-            print("You forgot to attach a text object or textbox to the ClickMechanics script.");
+            print("Either the textbox or one of the choice boxes is null");
         }
-        
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
+    // NOTE: This allows you to talk to NPC's with missions one time and then never again.
+    // For non-mission NPC's, it might be simpler to create a totally separate queue and script
+    // just for them.
     void OnMouseDown()
     {
-        //print("Object's name is: " + objectName + " | The global bool is: " + DialogueSystem.getIsTalking());
+        // If the mission has been completed, set the global
+        // talking variable to false.
+        if (DialogueSystem.getMissionComplete())
+        {
+            DialogueSystem.setIsTalking(false);
+        }
 
-        // Show the text and textbox.
-        textObject.SetActive(true);
-        textbox.SetActive(true);
-
-        // If no object is already talking...
+        // If the global talking variable is false...
         if (!DialogueSystem.getIsTalking())
         {
-            // Set the global talking value to true.
+            // Set the textbox components to true.
+            textbox.SetActive(true);
+
+            // If a mission has not been completed...
+            if (!DialogueSystem.getMissionComplete())
+            {
+                // Place the given text into the queue.
+                DialogueSystem.pushToQueue(dialogue);
+
+                // Place the given collect amount into the given
+                // global temporary integer.
+                DialogueSystem.setTempInt(collectAmount);
+            }
+            // If a mission has been completed...
+            else if (DialogueSystem.getMissionComplete())
+            {
+                // Place the completion text into the global queue.
+                DialogueSystem.pushToQueue(completionDialogue);
+
+                // Set the global mission boolean to false.
+                DialogueSystem.setMissionComplete(false);
+            }
+
+            // Display the first piece of text.
+            textbox.GetComponentInChildren<Text>().text = DialogueSystem.popFromQueue();
+
+            // Set the global talking boolean to true to 
+            // prevent other objects from adding to the queue.
             DialogueSystem.setIsTalking(true);
-
-            //print("Global dialogue bool locked by: " + objectName + " | bool: " + DialogueSystem.getIsTalking());
-
-            // Push the dialogue on the object to the global queue.
-            DialogueSystem.pushToQueue(dialogue);
-
-            // Show the first piece of dialogue in the text box.
-            textArea.text = DialogueSystem.popFromQueue();
         }
-        // If an object is currently talking...
-        else if (DialogueSystem.getIsTalking())
-        {
-            //print(objectName + " tried to talk but someone is speaking right now. | bool: " + DialogueSystem.getIsTalking());
 
-            // If the queue size is empty...
-            if (DialogueSystem.getQueueSize() == 0)
-            {
-                //print("T'is an empty queue");
-
-                // Set the global talking value to false.
-                DialogueSystem.setIsTalking(false);
-
-                // Clear the text in the textbox.
-                textArea.text = "";
-
-                // Hide the text and textbox.
-                textObject.SetActive(false);
-                textbox.SetActive(false);  
-            }
-            // If the queue size is not empty, then we display a piece of dialogue.
-            else
-            {
-                textArea.text = DialogueSystem.popFromQueue();
-            }
-        }
+        // To track variables.
+        //print("tempInt: " + DialogueSystem.getTempInt() + " | missionComplete: " + DialogueSystem.getMissionComplete() + " | isTalking: " + DialogueSystem.getIsTalking() + " | local isTalking: " + isTalking);
     }
 }
