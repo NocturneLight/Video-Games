@@ -63,6 +63,9 @@ public class ClickMechanics : MonoBehaviour
 
                 // Set the global mission boolean to false.
                 DialogueSystem.setMissionComplete(false);
+
+                // Have the model disappear.
+                this.gameObject.SetActive(false);
             }
 
             // Display the first piece of text.
@@ -71,6 +74,12 @@ public class ClickMechanics : MonoBehaviour
             // Set the global talking boolean to true to 
             // prevent other objects from adding to the queue.
             DialogueSystem.setIsTalking(true);
+        }
+        
+        // Reset the global booleans to allow an NPC to be spoken to for infinity.
+        if (DialogueSystem.getIsTalking())
+        {
+            DialogueSystem.resetAllGlobalBooleans();
         }
 
         // To track variables.

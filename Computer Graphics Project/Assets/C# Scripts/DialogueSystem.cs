@@ -10,6 +10,7 @@ public static class DialogueSystem
     // Create our variables here.
     private static int tempInt = 0;
     private static int collectNumber = 0;
+    private static int totalCollected = 0;
     private static string[] completionDialogue = null;
     private static bool yesButton = false;
     private static bool noButton = false;
@@ -18,6 +19,23 @@ public static class DialogueSystem
     private static Queue<string> dialogueQueue = new Queue<string>(); // A global queue used to pass text to the UI.
     private static ArrayList choices = new ArrayList();
 
+    public static void addToGlobalCollected(int num)
+    {
+        totalCollected += num;
+    }
+
+    public static int getGlobalCollected()
+    {
+        return totalCollected;
+    }
+
+    public static void resetAllGlobalBooleans()
+    {
+        yesButton = false;
+        noButton = false;
+        missionComplete = false;
+        isTalking = false;
+    }
 
     public static void setCompletionDialogue(string[] dialogue)
     {

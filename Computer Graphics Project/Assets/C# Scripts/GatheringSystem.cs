@@ -54,6 +54,9 @@ public class GatheringSystem : MonoBehaviour
 
 			// Then update the item count.
 			itemCountText.text = ++itemCount + "/" + DialogueSystem.getCollectNumber();
+
+			// Add to the global counter.
+			DialogueSystem.addToGlobalCollected(1);
 		}
 		
 		// When the number of collected items is equal to the global collect number and the global
