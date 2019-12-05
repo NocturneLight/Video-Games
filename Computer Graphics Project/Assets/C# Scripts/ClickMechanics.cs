@@ -5,112 +5,84 @@ using UnityEngine.UI;
 
 public class ClickMechanics : MonoBehaviour
 {
-    // Create variables here.
-    public GameObject uiComponent = null;
-    public GameObject textboxObject = null;
-    public GameObject dialogueObject = null;
-    public Text dialogueTextObject = null;
-    public DialogueSystem characterText = new DialogueSystem();
-    private Queue<string> sentenceQueue = new Queue<string>();
-    private bool firstTime = true;
-    bool end = false;
+    public GameObject textbox = null;
+    public GameObject choiceBox1 = null;
+    public GameObject choiceBox2 = null;
+    public int collectAmount = 5;
+    [TextArea(5, 15)] public string[] dialogue = new string[1];
+    [TextArea(5, 15)] public string[] completionDialogue = new string[1];
+    private bool isTalking = false;
 
-    // Start is called before the first frame update
     void Start()
     {
-        if (uiComponent != null)
+        if (textbox != null && choiceBox1 != null && choiceBox2 != null)
         {
-            // Set the textbox and dialogue to false so they aren't on screen.
-            textboxObject.SetActive(false);
-            dialogueObject.SetActive(false);
-        }   
+            textbox.SetActive(false);
+            choiceBox1.SetActive(false);
+            choiceBox2.SetActive(false);
+        }
         else
         {
-            print("Forgot to add the UIComponent to this object.");
+            print("Either the textbox or one of the choice boxes is null");
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    // NOTE: This allows you to talk to NPC's with missions one time and then never again.
+    // For non-mission NPC's, it might be simpler to create a totally separate queue and script
+    // just for them.
     void OnMouseDown()
     {
-        // Set our textbox and text's visibility to true.
-        textboxObject.SetActive(true);
-        dialogueObject.SetActive(true);
-
-        //print(characterText.isEmpty());
-
-        if (!characterText.isEmpty() && firstTime)
+        // If the mission has been completed, set the global
+        // talking variable to false.
+        if (DialogueSystem.getMissionComplete())
         {
-            foreach (string text in characterText.dialogue)
-            {
-                if (!string.IsNullOrEmpty(text) && !sentenceQueue.Contains(text))
-                {
-                    sentenceQueue.Enqueue(text);
-                }
-            }
-
-            dialogueTextObject.text = sentenceQueue.Dequeue();
-
-            firstTime = !firstTime;
+            DialogueSystem.setIsTalking(false);
         }
-        else if (!firstTime && !end)
+
+        // If the global talking variable is false...
+        if (!DialogueSystem.getIsTalking())
         {
-            if (sentenceQueue.Count == 0)
+            // Set the textbox components to true.
+            textbox.SetActive(true);
+
+            // If a mission has not been completed...
+            if (!DialogueSystem.getMissionComplete())
             {
-                end = !end;
+                // Place the given text into the queue.
+                DialogueSystem.pushToQueue(dialogue);
+
+                // Place the given collect amount into the given
+                // global temporary integer.
+                DialogueSystem.setTempInt(collectAmount);
             }
-            
-            if (sentenceQueue.Count > 0)
+            // If a mission has been completed...
+            else if (DialogueSystem.getMissionComplete())
             {
-                dialogueTextObject.text = sentenceQueue.Dequeue();
+                // Place the completion text into the global queue.
+                DialogueSystem.pushToQueue(completionDialogue);
+
+                // Set the global mission boolean to false.
+                DialogueSystem.setMissionComplete(false);
+
+                // Have the model disappear.
+                this.gameObject.SetActive(false);
             }
+
+            // Display the first piece of text.
+            textbox.GetComponentInChildren<Text>().text = DialogueSystem.popFromQueue();
+
+            // Set the global talking boolean to true to 
+            // prevent other objects from adding to the queue.
+            DialogueSystem.setIsTalking(true);
         }
         
-        if (end)
+        // Reset the global booleans to allow an NPC to be spoken to for infinity.
+        if (DialogueSystem.getIsTalking())
         {
-            // Set our textbox and text's visibility to true.
-            textboxObject.SetActive(false);
-            dialogueObject.SetActive(false);
-
-            firstTime = !firstTime;
-            end = !end;
-
-            dialogueTextObject.text = "";
-
+            DialogueSystem.resetAllGlobalBooleans();
         }
 
-    /*
-        // If the text field isn't empty, place the string in the queue.
-        foreach (string text in characterText.dialogue)
-        {
-            if (text != "")
-            {
-                //print(text);
-                sentenceQueue.Enqueue(text);
-            }
-        }
-
-        dialogueTextObject.text = sentenceQueue.Dequeue();
-    */
-        /*
-        // If at the end, print that we're at the end in the log.
-        if (sentenceQueue.Count == 0)
-        {
-            print("End of queue.");
-        }
-        // Else we print the text in the queue to the text field on the object.
-        else
-        {
-            dialogueTextObject.text = sentenceQueue.Dequeue();
-        }
-        */
-
-        //textboxObject.SetActive(false);
-        //dialogueObject.SetActive(false);
+        // To track variables.
+        //print("tempInt: " + DialogueSystem.getTempInt() + " | missionComplete: " + DialogueSystem.getMissionComplete() + " | isTalking: " + DialogueSystem.getIsTalking() + " | local isTalking: " + isTalking);
     }
 }
